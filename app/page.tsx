@@ -6,6 +6,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { NewsSection } from "@/components/NewsSection";
 import { StylesSection } from "@/components/StylesSection";
+import { TeachersSection } from "@/components/TeachersSection";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
         </div>
         <ClassesSection />
         <StylesSection />
+        <TeachersSection />
         <CompetitionsSection />
         <NewsSection />
         <ContactSection />

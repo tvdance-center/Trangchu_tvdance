@@ -815,6 +815,162 @@ img {
   color: var(--style-color);
 }
 
+.teachers-section {
+  background: var(--ink-950);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.teachers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+
+.teachers-heading h2 {
+  margin: 0 0 14px;
+  font-family: var(--font-display), "Roboto", "Helvetica", "Verdana", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.8rem);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.teachers-heading p {
+  margin: 0;
+  max-width: 580px;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.teachers-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+.carousel-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: var(--ink-800);
+  color: var(--paper);
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+.carousel-button:hover {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
+}
+
+.carousel-button:active {
+  transform: translateY(0);
+}
+
+.carousel-button svg {
+  width: 20px;
+  height: 20px;
+}
+
+.teachers-carousel {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 8px;
+}
+
+.teachers-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.teachers-track {
+  display: flex;
+  gap: 24px;
+}
+
+.teacher-card {
+  flex: 0 0 calc((100% - 3 * 24px) / 4);
+  scroll-snap-align: start;
+  border-radius: 22px;
+  overflow: hidden;
+  background: var(--ink-800);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease, box-shadow 400ms ease;
+}
+
+.teacher-card:hover {
+  border-color: rgba(225, 6, 0, 0.45);
+  box-shadow: 0 12px 35px rgba(225, 6, 0, 0.18);
+  transform: translateY(-4px);
+}
+
+.teacher-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--ink-900);
+}
+
+.teacher-image {
+  object-fit: cover;
+  filter: saturate(0.85);
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1), filter 400ms ease;
+}
+
+.teacher-card:hover .teacher-image {
+  transform: scale(1.05);
+  filter: saturate(1.05);
+}
+
+.teacher-info {
+  padding: 20px 22px 24px;
+  background: linear-gradient(180deg, var(--ink-800) 0%, #0d0d0d 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.teacher-name {
+  margin: 0;
+  font-family: var(--font-display), "Roboto", "Helvetica", "Verdana", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--paper);
+  line-height: 1.1;
+}
+
+.teacher-role {
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 .competitions-section {
   background: var(--ink-950);
 }
@@ -959,7 +1115,7 @@ img {
 }
 
 .news-card-1 .news-image img {
-  object-position: center 75%;
+  object-position: center 35%;
 }
 
 .news-image img {
@@ -1238,6 +1394,14 @@ img {
     bottom: 38px;
     left: 34px;
   }
+
+  .teacher-card {
+    flex: 0 0 calc((100% - 2 * 20px) / 3);
+  }
+
+  .teachers-track {
+    gap: 20px;
+  }
 }
 
 @media (max-width: 840px) {
@@ -1467,6 +1631,14 @@ img {
   .footer-brand {
     grid-column: span 2;
   }
+
+  .teacher-card {
+    flex: 0 0 calc((100% - 16px) / 2.25);
+  }
+
+  .teachers-track {
+    gap: 16px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -1625,6 +1797,24 @@ img {
 
   .footer-bottom {
     flex-direction: column;
+  }
+
+  .teachers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .teachers-controls {
+    align-self: flex-end;
+  }
+
+  .teacher-card {
+    flex: 0 0 78%;
+  }
+
+  .teachers-track {
+    gap: 14px;
   }
 }
 

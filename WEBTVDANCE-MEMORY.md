@@ -180,6 +180,16 @@ Các nhãn điều hướng chính thức bắt buộc bảo vệ:
   2. `02 Stage`: Contemporary · Jazz · Múa đương đại (`color: "#FF1A14"`)
   3. `03 Pop`: K-pop · Dance cover · Performance (`color: "rgba(255, 255, 255, 0.7)"`)
   4. `04 Social`: Latin · Couple dance · Foundation (`color: "#9A9A9A"`)
+* **8 Huấn luyện viên chính (`teachers` trong `lib/teachers.ts`) — Thứ tự bảo vệ (Protected Order)**:
+  1. `Tường Vi` — File: `Tuong Vi.jpg`
+  2. `Thủy (Xê Xủi)` — File: `Xe Xui.jpg` (Tên tiếng Việt hiển thị chính xác: Thủy (Xê Xủi))
+  3. `Trang Rita` — File: `Trang Rita.jpg`
+  4. `Tùng Bi` — File: `Tung Bi.jpg`
+  5. `Phi Yến` — File: `Phi Yen.jpg`
+  6. `Trang Ngân` — File: `Trang Ngan.jpg`
+  7. `Minh Hà` — File: `Minh Ha.jpg`
+  8. `Hiệp Dương` — File: `Hiep Duong.jpg`
+  * Lưu ý: Tên file vật lý giữ nguyên ASCII/tên gốc trên đĩa. UI hiển thị tiếng Việt có dấu đúng xác nhận của Owner. Tuyệt đối không tự ý sắp xếp lại hoặc đổi tên.
 
 ---
 
@@ -188,6 +198,8 @@ Các nhãn điều hướng chính thức bắt buộc bảo vệ:
 * **Nguồn ảnh và lưu trữ**:
   * Tài sản hình ảnh của TV Dance và bên thứ ba được tải về lưu trữ cục bộ tại `public/images/site/` để tránh rủi ro hết hạn token CDN và phụ thuộc mạng ngoài.
   * Ngoại lệ bảo lưu: Ảnh lớp học `Street Dance` được tải trực tiếp từ Pexels (`https://images.pexels.com/photos/32143268/...`).
+  * Tài sản `Lop hoc.jpg`: Ảnh chụp lớp học vũ đạo thực tế tại phòng tập TV Dance Center dùng cho bài tin tức 1.
+  * Tài sản `news-dare-to-try.jpg`: Trở thành **UNUSED ASSET** (giữ nguyên trong thư mục, không tự xóa).
 * **Nghiêm cấm**: Tuyệt đối không dùng ảnh stock chưa có bản quyền hoặc có watermark từ iStock, Getty Images, Shutterstock.
 * **Chính sách Attribution**: Mọi hình ảnh nội dung phải giữ nguyên:
   * `alt`: Mô tả tiếng Việt rõ ràng, có ngữ cảnh thực tế cho trợ năng.
@@ -203,20 +215,31 @@ Các nhãn điều hướng chính thức bắt buộc bảo vệ:
 2. **Primary Brand Red `#E10600`**: Được chọn làm màu chủ đạo của thương hiệu TV Dance Center.
 3. **Logo & Favicon Vector Scope**: Owner đã **phê duyệt trực tiếp** việc chỉnh sửa màu trong `public/logo.svg` và `app/icon.svg` sang `#E10600`, `#FF1A14`, `#111111` và `#0A0A0A`. Đây là quyết định đã chốt, không coi là unauthorized scope expansion.
 4. **Tiêu đề Tin tức rút gọn**: Phê duyệt tiêu đề rút gọn *"Câu Chuyện Phòng Tập"* cho Section 04 với kích thước chữ `clamp(1.55rem, 3.6vw, 3.5rem)`.
-5. **Thay thế bộ ảnh photoshoot Pavel Danilyuk**: Phê duyệt thay thế toàn bộ ảnh photoshoot mẫu trùng lặp bằng bộ 9 tài sản hình ảnh thực tế lưu trữ cục bộ tại `public/images/site/`.
+5. **Thay thế bộ ảnh photoshoot Pavel Danilyuk**: Phê duyệt thay thế toàn bộ ảnh photoshoot mẫu trùng lặp bằng bộ tài sản hình ảnh thực tế lưu trữ cục bộ tại `public/images/site/`.
 6. **Bảo tồn ảnh Street Dance**: Giữ nguyên 100% ảnh Street Dance (`Nimit N / Pexels - 32143268`). Không thay đổi.
-7. **CSS Object-Position cho ảnh dọc**: Phê duyệt thêm `.news-card-1 .news-image img { object-position: center 75%; }` để hiển thị trọn vẹn nhóm học viên trong ảnh dọc 3:4.
+7. **Section Đội ngũ Giáo viên (Teachers Carousel)**: Phê duyệt bổ sung section Giáo viên dạng horizontal carousel nằm sau `StylesSection` và trước `CompetitionsSection`, không đánh số section. Dùng thuần CSS/React, không cài package carousel ngoài.
+8. **Roster 8 Giáo viên & Tên hiển thị**: Phê duyệt chính xác thứ tự 8 giáo viên (Tường Vi -> Thủy (Xê Xủi) -> Trang Rita -> Tùng Bi -> Phi Yến -> Trang Ngân -> Minh Hà -> Hiệp Dương). Đặc biệt `Xe Xui.jpg` hiển thị là `Thủy (Xê Xủi)`.
+9. **Ảnh bài tin tức Dám thử**: Phê duyệt thay ảnh sang `/images/site/Lop hoc.jpg` và giữ `news-dare-to-try.jpg` làm unused asset.
 
 ---
 
 ## 15. Completed Major Changes
+
+* **Task: Teacher Team Carousel + Correct News Image (Hoàn thành 2026-09-25)**:
+  * Tạo `lib/teachers.ts` chứa dữ liệu 8 giáo viên theo thứ tự bảo vệ và display name tiếng Việt chuẩn xác.
+  * Tạo `components/TeachersSection.tsx`: Carousel ngang sử dụng CSS scroll-snap, responsive cards (1440px: 4, 1024px: 3, 768px: ~2.25, 375px: ~1.25), touch swipe mượt mà, autoplay 4.5s có pause on hover/focus/hidden/reduced-motion, quay vòng controlled loop.
+  * Thêm `ArrowLeft`, `ArrowRight` vào `components/Icons.tsx`.
+  * Nhúng `<TeachersSection />` vào `app/page.tsx` sau `<StylesSection />` và trước `<CompetitionsSection />`.
+  * Cập nhật `lib/site-data.ts`: Bài tin tức "Một buổi tập tốt bắt đầu từ việc dám thử" chuyển sang ảnh `/images/site/Lop hoc.jpg` kèm alt text mô tả thực tế.
+  * Cập nhật `app/globals.css`: Toàn bộ styling cho Teachers Section và responsive media queries (1024px, 840px, 600px).
+  * Đã qua Quality Gates: `npm run lint` (PASS), `npm run typecheck` (PASS), `npm run build` (PASS).
 
 * **Task: Thay bộ ảnh Website TV Dance theo Owner-provided assets (Hoàn thành 2026-09-24)**:
   * Tải và lưu trữ 9 hình ảnh cục bộ tại `public/images/site/` (`hero-tv-dance.jpg`, `class-hip-hop.jpg`, `class-kpop.jpg`, `class-latin.jpg`, `style-signature.jpg`, `competition-performance.jpg`, `news-dare-to-try.jpg`, `news-music-you-love.jpg`, `news-stage-energy.jpg`).
   * Loại bỏ hoàn toàn sự trùng lặp photoshoot của Pavel Danilyuk.
   * Giữ nguyên ảnh Street Dance (`Nimit N / Pexels`).
   * Cập nhật `components/Hero.tsx`, `components/StylesSection.tsx`, `components/CompetitionsSection.tsx`, `lib/site-data.ts`.
-  * Tinh chỉnh CSS `object-position: center 75%` cho ảnh dọc tin tức Dám thử trong `app/globals.css`.
+  * Tinh chỉnh CSS `object-position` cho ảnh tin tức trong `app/globals.css`.
   * Đã qua Quality Gates: `npm run lint` (PASS), `npm run typecheck` (PASS), `npm run build` (PASS).
 
 * **Task: Đồng bộ hệ màu Website TV Dance theo CRM Public (Hoàn thành 2026-09-24)**:
