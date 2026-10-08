@@ -55,6 +55,7 @@ export function Hero() {
           <p>📍 Cơ sở 1: Tầng 10 - 4D Hồ Sen</p>
           <p>📍 Cơ sở 2: Nhà thi đấu quận Kiến An</p>
           <p>📍 Cơ sở 3: NVH An Lạc, 16A An Lạc, Sở Dầu</p>
+          <p>📍 Cơ sở 4: Bể Bơi, Cung VHLD Việt Tiệp, Số 53 Lạch Tray, P. Gia Viên</p>
         </div>
         <div className="hero-bottom hero-enter">
           <p>

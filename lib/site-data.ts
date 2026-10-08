@@ -11,6 +11,7 @@ export const navItems = [
 export const classes = [
   {
     name: "Street Dance",
+    slug: "street-dance",
     tag: "Năng lượng / Bản lĩnh",
     description: "Từ nền tảng groove đến freestyle, xây chất riêng bằng nhịp điệu đường phố.",
     image: "https://images.pexels.com/photos/32143268/pexels-photo-32143268.jpeg?auto=compress&cs=tinysrgb&w=1800",
@@ -21,6 +22,7 @@ export const classes = [
   },
   {
     name: "Hip-hop",
+    slug: "hip-hop",
     tag: "Nền tảng / Tự do",
     description: "Học nền tảng, musicality và cách kể câu chuyện của bạn qua từng tổ hợp chuyển động.",
     image: "/images/site/class-hip-hop.jpg",
@@ -31,6 +33,7 @@ export const classes = [
   },
   {
     name: "K-pop",
+    slug: "k-pop",
     tag: "Trình diễn / Đồng đội",
     description: "Chinh phục choreography, biểu cảm sân khấu và năng lượng đồng đội đúng tinh thần idol.",
     image: "/images/site/class-kpop.jpg",
@@ -41,6 +44,7 @@ export const classes = [
   },
   {
     name: "Latin",
+    slug: "latin",
     tag: "Kết nối / Cuốn hút",
     description: "Cảm nhận nhịp, kết nối bạn nhảy và giải phóng cơ thể với tinh thần Latin rực lửa.",
     image: "/images/site/class-latin.jpg",

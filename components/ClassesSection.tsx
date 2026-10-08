@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "@/components/Icons";
 import { SectionHeading } from "@/components/SectionHeading";
 import { classes } from "@/lib/site-data";
@@ -26,9 +27,9 @@ export function ClassesSection() {
               <div className="class-copy">
                 <h3>{item.name}</h3>
                 <p>{item.description}</p>
-                <a href="#lien-he" aria-label={`Hỏi thêm về lớp ${item.name}`}>
+                <Link href={`/lop-hoc/${item.slug}`} aria-label={`Tìm hiểu lớp ${item.name}`}>
                   Tìm hiểu lớp <ArrowUpRight />
-                </a>
+                </Link>
               </div>
               <a className="image-source" href={item.sourceUrl} target="_blank" rel="noopener noreferrer">
                 {item.source}

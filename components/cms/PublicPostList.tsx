@@ -4,25 +4,40 @@ import { ArrowUpRight } from '@/components/Icons'
 import { cmsImageUrl } from '@/lib/cms/server'
 import { CmsPostType, PublicCmsPost } from '@/lib/cms/types'
 
+const classKindLabels = {
+  recruitment: 'Tuyển sinh',
+  opening: 'Khai giảng',
+  activity: 'Hoạt động lớp',
+  gallery: 'Hình ảnh',
+  video: 'Video',
+} as const
+
 function formatDate(value: string) {
   return new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(value))
 }
 
 export function PublicPostList({ posts, type }: { posts: PublicCmsPost[]; type: CmsPostType }) {
-  const base = type === 'news' ? '/tin-tuc' : '/giai-dau'
+  const postHref = (post: PublicCmsPost) => {
+    if (type === 'class' && post.class_slug) return `/lop-hoc/${post.class_slug}/${post.slug}`
+    return `${type === 'news' ? '/tin-tuc' : '/giai-dau'}/${post.slug}`
+  }
+  const badge = (post: PublicCmsPost) => {
+    if (post.type === 'class') return post.class_content_kind ? classKindLabels[post.class_content_kind] : 'Lớp học'
+    return post.category || (post.type === 'news' ? 'Tin tức' : 'Giải đấu')
+  }
   if (posts.length === 0) return <p className="cms-empty">Chưa có nội dung được xuất bản.</p>
   return (
     <div className="cms-list-grid">
       {posts.map((post) => (
         <article className="cms-list-card" key={post.id}>
-          <Link className="cms-list-image" href={`${base}/${post.slug}`}>
+          <Link className="cms-list-image" href={postHref(post)}>
             <Image src={cmsImageUrl(post.cover_image)} alt={post.cover_image_alt || post.title} fill sizes="(max-width: 767px) 100vw, 50vw" />
-            {post.category && <span>{post.category}</span>}
+            <span>{badge(post)}</span>
           </Link>
-          <time dateTime={post.event_date || post.published_at}>{formatDate(post.event_date || post.published_at)}</time>
-          <h2><Link href={`${base}/${post.slug}`}>{post.title}</Link></h2>
+          <time dateTime={post.class_start_date || post.event_date || post.published_at}>{formatDate(post.class_start_date || post.event_date || post.published_at)}</time>
+          <h2><Link href={postHref(post)}>{post.title}</Link></h2>
           {post.excerpt && <p>{post.excerpt}</p>}
-          <Link className="news-link" href={`${base}/${post.slug}`}>Xem chi tiết <ArrowUpRight /></Link>
+          <Link className="news-link" href={postHref(post)}>Xem chi tiết <ArrowUpRight /></Link>
         </article>
       ))}
     </div>

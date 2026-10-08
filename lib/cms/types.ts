@@ -1,5 +1,6 @@
-export type CmsPostType = 'news' | 'competition'
+export type CmsPostType = 'news' | 'competition' | 'class'
 export type CmsCompetitionStatus = 'upcoming' | 'ongoing' | 'completed' | 'cancelled'
+export type CmsClassContentKind = 'recruitment' | 'opening' | 'activity' | 'gallery' | 'video'
 
 export type CmsContentBlock =
   | { id: string; type: 'paragraph'; text: string }
@@ -30,6 +31,17 @@ export interface PublicCmsPost {
   end_date: string | null
   location: string | null
   competition_status: CmsCompetitionStatus | null
+  class_name: string | null
+  class_slug: string | null
+  class_content_kind: CmsClassContentKind | null
+  class_start_date: string | null
+  class_schedule: string | null
+  class_teacher: string | null
+  class_tuition: string | null
+  class_location: string | null
+  registration_url: string | null
+  video_url: string | null
+  show_on_homepage: boolean
   source?: string
   sourceUrl?: string
   isFallback?: boolean
