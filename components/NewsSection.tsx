@@ -1,9 +1,15 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "@/components/Icons";
 import { SectionHeading } from "@/components/SectionHeading";
-import { newsItems } from "@/lib/site-data";
+import { cmsImageUrl, getPublishedPosts } from "@/lib/cms/server";
 
-export function NewsSection() {
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(value));
+}
+
+export async function NewsSection() {
+  const newsItems = await getPublishedPosts("news", 3);
   return (
     <section id="tin-tuc" className="section news-section">
       <div className="shell">
@@ -17,23 +23,22 @@ export function NewsSection() {
 
         <div className="news-grid">
           {newsItems.map((item, index) => (
-            <article className={`news-card news-card-${index + 1} reveal`} key={item.title}>
+            <article className={`news-card news-card-${index + 1} reveal`} key={item.id}>
               <div className="news-image">
-                <Image src={item.image} alt={item.alt} fill sizes="(max-width: 767px) 100vw, 33vw" />
+                <Image src={cmsImageUrl(item.cover_image)} alt={item.cover_image_alt || item.title} fill sizes="(max-width: 767px) 100vw, 33vw" />
                 <span>{item.category}</span>
               </div>
               <div className="news-meta">
-                <time dateTime={item.date.split(".").reverse().join("-")}>{item.date}</time>
-                <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">Ảnh: {item.source}</a>
+                <time dateTime={item.published_at}>{formatDate(item.published_at)}</time>
+                {item.sourceUrl && <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">Ảnh: {item.source}</a>}
               </div>
               <h3>{item.title}</h3>
               <p>{item.excerpt}</p>
-              <a className="news-link" href="#lien-he">
-                Trao đổi cùng TV Dance <ArrowUpRight />
-              </a>
+              <Link className="news-link" href={`/tin-tuc/${item.slug}`}>Đọc tiếp <ArrowUpRight /></Link>
             </article>
           ))}
         </div>
+        <Link className="cms-section-more" href="/tin-tuc">Xem tất cả tin tức <ArrowUpRight /></Link>
       </div>
     </section>
   );

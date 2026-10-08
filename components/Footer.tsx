@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "@/components/Icons";
 import { CRM_URL, navItems } from "@/lib/site-data";
 
@@ -11,7 +12,7 @@ export function Footer() {
           <p>Nhảy mạnh hơn.<br />Sống rực hơn.</p>
         </div>
         <nav aria-label="Điều hướng cuối trang">
-          {navItems.map((item) => <a key={item.href} href={item.href}>{item.label}</a>)}
+          {navItems.map((item) => <Link key={item.href} href={`/${item.href}`}>{item.label}</Link>)}
           <a href={CRM_URL} target="_blank" rel="noopener noreferrer">CRM <ArrowUpRight /></a>
         </nav>
         <div className="footer-contact">
@@ -23,7 +24,7 @@ export function Footer() {
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} TV Dance Center</span>
         <span>Website giới thiệu</span>
-        <a href="#trang-chu">Lên đầu trang ↑</a>
+        <Link href="/#trang-chu">Lên đầu trang ↑</Link>
       </div>
     </footer>
   );

@@ -3,7 +3,9 @@
 - This directory is an independent public marketing website.
 - Do not import from, write to, or couple this project with `../crm-app/`.
 - The only CRM integration is an external link to `https://crm.tvdance.online/`.
-- Do not add login, student portal, dashboard, database, payment, attendance, or CRM features.
+- Do not add login, student portal, dashboard, payment, attendance, or CRM features.
+- The public website may read only published `website_*` CMS content from the shared Supabase project with the anon key; all authoring remains inside `../crm-app/`, and no service-role key may be used here.
+- Keep the local static content as fallback until `TV_DANCE_CMS_CUTOVER=true`; CMS reads must refresh within about 60 seconds without a redeploy.
 - Keep navigation labels: Trang chủ, Lớp học, Phong cách, Giải Đấu, Tin tức, CRM.
 - Preserve the dark editorial dance direction documented in `DESIGN.md`.
 - Before modifying this project, read `WEBTVDANCE-MEMORY.md` together with `DESIGN.md`.
