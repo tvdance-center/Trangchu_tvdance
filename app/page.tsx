@@ -26,11 +26,11 @@ export default function Home() {
             <span aria-hidden="true">Latin</span><i aria-hidden="true" />
           </div>
         </div>
+        <NewsSection />
+        <CompetitionsSection />
         <ClassesSection />
         <StylesSection />
         <TeachersSection />
-        <CompetitionsSection />
-        <NewsSection />
         <ContactSection />
       </main>
       <Footer />
