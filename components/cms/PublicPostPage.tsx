@@ -3,7 +3,9 @@ import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { CmsContentView } from './CmsContent'
 import { PublicCmsPost } from '@/lib/cms/types'
+import { postCanonicalUrl } from '@/lib/cms/metadata'
 import { CmsImage } from './CmsImage'
+import { SocialShare } from './SocialShare'
 
 const classKindLabels = {
   recruitment: 'Tuyển sinh',
@@ -74,6 +76,7 @@ export function PublicPostPage({ post }: { post: PublicCmsPost }) {
             </section>
           )}
           <CmsContentView content={post.content} />
+          <SocialShare title={post.title} excerpt={post.excerpt} url={postCanonicalUrl(post)} />
         </article>
       </main>
       <Footer />
