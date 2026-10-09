@@ -3,7 +3,7 @@ import 'server-only'
 import { fallbackCompetitions, fallbackNews } from './fallback'
 import { CmsPostType, PublicCmsPost } from './types'
 
-const SELECT_FIELDS = 'id,type,title,slug,category,excerpt,content,cover_image,cover_image_alt,featured,seo_title,seo_description,published_at,event_date,end_date,location,competition_status,class_name,class_slug,class_content_kind,class_start_date,class_schedule,class_teacher,class_tuition,class_location,registration_url,video_url,show_on_homepage'
+const SELECT_FIELDS = 'id,type,title,slug,category,excerpt,content,cover_source_type,cover_image,cover_external_url,cover_image_alt,featured,seo_title,seo_description,published_at,event_date,end_date,location,competition_status,class_name,class_slug,class_content_kind,class_start_date,class_schedule,class_teacher,class_tuition,class_location,registration_url,video_url,show_on_homepage'
 
 function config() {
   const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '')

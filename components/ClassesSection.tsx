@@ -17,8 +17,8 @@ export function ClassesSection() {
 
         <div className="class-grid">
           {classes.map((item, index) => (
-            <article className={`class-card class-card-${index + 1} accent-${item.accent} reveal`} key={item.name}>
-              <Image src={item.image} alt={item.alt} fill sizes="(max-width: 767px) 100vw, 50vw" className="class-image" />
+            <article className={`class-card accent-${item.accent} reveal`} key={item.name}>
+              <Image src={item.image} alt={item.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 840px) 50vw, 33vw" className="class-image" />
               <div className="class-overlay" />
               <div className="class-topline">
                 <span>0{index + 1}</span>
@@ -36,11 +36,6 @@ export function ClassesSection() {
               </a>
             </article>
           ))}
-          <a className="class-more reveal" href="#lien-he">
-            <span>+ Nhiều phong cách khác</span>
-            <strong>Tìm lớp hợp với bạn</strong>
-            <ArrowUpRight />
-          </a>
         </div>
       </div>
     </section>

@@ -1,10 +1,9 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { CmsContentView } from './CmsContent'
-import { cmsImageUrl } from '@/lib/cms/server'
 import { PublicCmsPost } from '@/lib/cms/types'
+import { CmsImage } from './CmsImage'
 
 const classKindLabels = {
   recruitment: 'Tuyển sinh',
@@ -64,7 +63,7 @@ export function PublicPostPage({ post }: { post: PublicCmsPost }) {
             <time dateTime={post.class_start_date || post.event_date || post.published_at}>{formatDate(post.class_start_date || post.event_date || post.published_at)}</time>
             {(post.class_location || post.location) && <small>{post.class_location || post.location}</small>}
           </div>
-          <div className="cms-detail-cover"><Image src={cmsImageUrl(post.cover_image)} alt={post.cover_image_alt || post.title} fill priority sizes="(max-width: 900px) 100vw, 1200px" /></div>
+          <div className="cms-detail-cover"><CmsImage sourceType={post.cover_source_type} storagePath={post.cover_image} externalUrl={post.cover_external_url} alt={post.cover_image_alt || post.title} priority sizes="(max-width: 900px) 100vw, 1200px" /></div>
           {isClass && (classDetails.length > 0 || registrationUrl || videoUrl) && (
             <section className="cms-class-details" aria-label="Thông tin lớp học">
               {classDetails.length > 0 && <dl className="cms-class-meta">{classDetails.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}

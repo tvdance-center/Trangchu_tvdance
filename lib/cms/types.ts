@@ -1,6 +1,15 @@
 export type CmsPostType = 'news' | 'competition' | 'class'
 export type CmsCompetitionStatus = 'upcoming' | 'ongoing' | 'completed' | 'cancelled'
 export type CmsClassContentKind = 'recruitment' | 'opening' | 'activity' | 'gallery' | 'video'
+export type CmsImageSourceType = 'storage' | 'external'
+
+export type CmsImageReference = {
+  sourceType?: CmsImageSourceType
+  storagePath?: string
+  url?: string
+  alt: string
+  caption?: string
+}
 
 export type CmsContentBlock =
   | { id: string; type: 'paragraph'; text: string }
@@ -8,8 +17,8 @@ export type CmsContentBlock =
   | { id: string; type: 'list'; style: 'bullet' | 'numbered'; items: string[] }
   | { id: string; type: 'quote'; text: string; attribution?: string }
   | { id: string; type: 'link'; text: string; url: string }
-  | { id: string; type: 'image'; storagePath: string; alt: string; caption?: string }
-  | { id: string; type: 'gallery'; items: Array<{ storagePath: string; alt: string; caption?: string }> }
+  | ({ id: string; type: 'image' } & CmsImageReference)
+  | { id: string; type: 'gallery'; items: CmsImageReference[] }
 
 export type CmsContent = { version: 1; blocks: CmsContentBlock[] }
 
@@ -21,7 +30,9 @@ export interface PublicCmsPost {
   category: string | null
   excerpt: string | null
   content: CmsContent
+  cover_source_type: CmsImageSourceType
   cover_image: string | null
+  cover_external_url: string | null
   cover_image_alt: string | null
   featured: boolean
   seo_title: string | null

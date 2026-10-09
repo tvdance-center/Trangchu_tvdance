@@ -1,8 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from '@/components/Icons'
-import { cmsImageUrl } from '@/lib/cms/server'
 import { CmsPostType, PublicCmsPost } from '@/lib/cms/types'
+import { CmsImage } from './CmsImage'
 
 const classKindLabels = {
   recruitment: 'Tuyển sinh',
@@ -31,7 +30,7 @@ export function PublicPostList({ posts, type }: { posts: PublicCmsPost[]; type: 
       {posts.map((post) => (
         <article className="cms-list-card" key={post.id}>
           <Link className="cms-list-image" href={postHref(post)}>
-            <Image src={cmsImageUrl(post.cover_image)} alt={post.cover_image_alt || post.title} fill sizes="(max-width: 767px) 100vw, 50vw" />
+            <CmsImage sourceType={post.cover_source_type} storagePath={post.cover_image} externalUrl={post.cover_external_url} alt={post.cover_image_alt || post.title} sizes="(max-width: 767px) 100vw, 50vw" />
             <span>{badge(post)}</span>
           </Link>
           <time dateTime={post.class_start_date || post.event_date || post.published_at}>{formatDate(post.class_start_date || post.event_date || post.published_at)}</time>

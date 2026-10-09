@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
+import { CmsImage } from "@/components/cms/CmsImage";
 import { ArrowUpRight } from "@/components/Icons";
 import { SectionHeading } from "@/components/SectionHeading";
-import { cmsImageUrl, getHomepagePosts } from "@/lib/cms/server";
+import { getHomepagePosts } from "@/lib/cms/server";
 import { PublicCmsPost } from "@/lib/cms/types";
 
 const classKindLabels = {
@@ -45,7 +45,7 @@ export async function NewsSection() {
           {newsItems.map((item, index) => (
             <article className={`news-card news-card-${index + 1} reveal`} key={item.id}>
               <div className="news-image">
-                <Image src={cmsImageUrl(item.cover_image)} alt={item.cover_image_alt || item.title} fill sizes="(max-width: 767px) 100vw, 33vw" />
+                <CmsImage sourceType={item.cover_source_type} storagePath={item.cover_image} externalUrl={item.cover_external_url} alt={item.cover_image_alt || item.title} sizes="(max-width: 767px) 100vw, 33vw" />
                 <span>{badge(item)}</span>
               </div>
               <div className="news-meta">
