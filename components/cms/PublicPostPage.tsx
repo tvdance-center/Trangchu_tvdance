@@ -63,7 +63,7 @@ export function PublicPostPage({ post }: { post: PublicCmsPost }) {
             <time dateTime={post.class_start_date || post.event_date || post.published_at}>{formatDate(post.class_start_date || post.event_date || post.published_at)}</time>
             {(post.class_location || post.location) && <small>{post.class_location || post.location}</small>}
           </div>
-          <div className="cms-detail-cover"><CmsImage sourceType={post.cover_source_type} storagePath={post.cover_image} externalUrl={post.cover_external_url} alt={post.cover_image_alt || post.title} priority sizes="(max-width: 900px) 100vw, 1200px" /></div>
+          <div className="cms-detail-cover"><CmsImage sourceType={post.cover_source_type} storagePath={post.cover_image} externalUrl={post.cover_external_url} alt={post.cover_image_alt || post.title} priority mode="natural" /></div>
           {isClass && (classDetails.length > 0 || registrationUrl || videoUrl) && (
             <section className="cms-class-details" aria-label="Thông tin lớp học">
               {classDetails.length > 0 && <dl className="cms-class-meta">{classDetails.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>}

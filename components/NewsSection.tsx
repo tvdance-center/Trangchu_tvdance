@@ -36,7 +36,7 @@ export async function NewsSection() {
         <SectionHeading
           number="04"
           eyebrow="Tin tức & lớp học"
-          title="Mới Nhất Từ TV Dance"
+          title="TVDANCE NEW"
           titleStyle={{ fontSize: "clamp(1.55rem, 3.6vw, 3.5rem)" }}
           copy="Tin tuyển sinh, khai giảng và những câu chuyện mới nhất từ cộng đồng TV Dance."
         />

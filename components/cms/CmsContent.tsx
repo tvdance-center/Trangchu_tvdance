@@ -29,7 +29,7 @@ export function CmsContentView({ content }: { content: CmsContent }) {
           }
           case 'quote': return <blockquote key={block.id}><p>{block.text}</p>{block.attribution && <cite>{block.attribution}</cite>}</blockquote>
           case 'link': return <p key={block.id}><Link className="cms-inline-link" href={safeUrl(block.url)}>{block.text}</Link></p>
-          case 'image': return <figure key={block.id}><div className="cms-content-image"><CmsImage sourceType={block.sourceType} storagePath={block.storagePath} externalUrl={block.url} alt={block.alt || ''} sizes="(max-width: 800px) 100vw, 760px" /></div>{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
+          case 'image': return <figure key={block.id}><div className="cms-content-image"><CmsImage sourceType={block.sourceType} storagePath={block.storagePath} externalUrl={block.url} alt={block.alt || ''} mode="natural" /></div>{block.caption && <figcaption>{block.caption}</figcaption>}</figure>
           case 'gallery': return <div key={block.id} className="cms-gallery">{(Array.isArray(block.items) ? block.items : []).map((item, index) => <figure key={`${item.sourceType || 'storage'}-${item.url || item.storagePath || index}`}><div className="cms-gallery-image"><CmsImage sourceType={item.sourceType} storagePath={item.storagePath} externalUrl={item.url} alt={item.alt || ''} sizes="(max-width: 600px) 100vw, 380px" /></div>{item.caption && <figcaption>{item.caption}</figcaption>}</figure>)}</div>
           default: return null
         }

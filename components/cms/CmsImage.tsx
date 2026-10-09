@@ -9,8 +9,10 @@ type CmsImageProps = {
   storagePath?: string | null
   externalUrl?: string | null
   alt: string
-  sizes: string
+  sizes?: string
   priority?: boolean
+  fit?: 'cover' | 'contain'
+  mode?: 'fill' | 'natural'
 }
 
 function storageImageUrl(path: string | null | undefined) {
@@ -29,35 +31,45 @@ function safeExternalImageUrl(value: string | null | undefined) {
   }
 }
 
-export function CmsImage({ sourceType, storagePath, externalUrl, alt, sizes, priority = false }: CmsImageProps) {
+export function CmsImage({
+  sourceType,
+  storagePath,
+  externalUrl,
+  alt,
+  sizes = '100vw',
+  priority = false,
+  fit = 'contain',
+  mode = 'fill',
+}: CmsImageProps) {
   const externalSrc = sourceType === 'external' ? safeExternalImageUrl(externalUrl) : null
   const src = externalSrc || (sourceType === 'external' ? null : storageImageUrl(storagePath))
   const [failed, setFailed] = useState(!src)
+  const imageClassName = `${mode === 'natural' ? 'cms-image-natural' : 'cms-image-fill'} cms-image--${fit}`
 
   useEffect(() => {
     setFailed(!src)
   }, [src])
 
   if (failed || !src) {
-    return <span className="cms-image-fallback" role="img" aria-label={alt || 'Ảnh không khả dụng'}>Ảnh không khả dụng</span>
+    return <div className={`cms-image-fallback${mode === 'natural' ? ' cms-image-fallback--natural' : ''}`} role="img" aria-label={alt || 'Ảnh không khả dụng'}>Ảnh không khả dụng</div>
   }
 
-  if (externalSrc) {
+  if (externalSrc || mode === 'natural') {
     return (
       // External CMS URLs are intentionally rendered without Next image optimization.
-      // This avoids a remote-host allowlist while keeping the browser as the only fetcher.
+      // Natural-ratio CMS images also use the browser's intrinsic dimensions.
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={externalSrc}
+        src={src}
         alt={alt}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
-        referrerPolicy="no-referrer"
-        className="cms-image-fill"
+        referrerPolicy={externalSrc ? 'no-referrer' : undefined}
+        className={imageClassName}
         onError={() => setFailed(true)}
       />
     )
   }
 
-  return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} onError={() => setFailed(true)} />
+  return <Image src={src} alt={alt} fill priority={priority} sizes={sizes} className={imageClassName} onError={() => setFailed(true)} />
 }
