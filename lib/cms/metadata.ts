@@ -5,17 +5,41 @@ export const SITE_ORIGIN = 'https://tvdance.online'
 
 const FALLBACK_DESCRIPTION = 'Nội dung mới từ TV Dance Center.'
 const FALLBACK_SOCIAL_IMAGE = `${SITE_ORIGIN}/images/site/hero-tv-dance.jpg`
+const CMS_MEDIA_PATH_PATTERN = /^(news|competitions|classes)\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\.(jpg|jpeg|png|webp|avif)$/i
+
+function decodedCmsMediaPath(value: string) {
+  const withoutProxyPrefix = value.replace(/^\/?cms-media\//, '')
+
+  try {
+    const decodedPath = withoutProxyPrefix.split('/').map(decodeURIComponent).join('/')
+    return CMS_MEDIA_PATH_PATTERN.test(decodedPath) ? decodedPath : null
+  } catch {
+    return null
+  }
+}
+
+function socialProxyUrl(storagePath: string) {
+  const encodedPath = storagePath.split('/').map(encodeURIComponent).join('/')
+  return `${SITE_ORIGIN}/og-image/${encodedPath}`
+}
 
 function absoluteStorageImage(path: string | null) {
   if (!path) return null
+
+  const cmsMediaPath = decodedCmsMediaPath(path)
+  if (cmsMediaPath) return socialProxyUrl(cmsMediaPath)
+
   if (path.startsWith('/')) return new URL(path, SITE_ORIGIN).toString()
 
   try {
     const url = new URL(path)
+    if (url.origin === SITE_ORIGIN && url.pathname.startsWith('/cms-media/')) {
+      const proxiedPath = decodedCmsMediaPath(url.pathname)
+      return proxiedPath ? socialProxyUrl(proxiedPath) : null
+    }
     return url.protocol === 'https:' ? url.toString() : null
   } catch {
-    const encodedPath = path.split('/').map(encodeURIComponent).join('/')
-    return `${SITE_ORIGIN}/cms-media/${encodedPath}`
+    return null
   }
 }
 
